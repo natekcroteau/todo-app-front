@@ -25,7 +25,6 @@ export default class App extends Component {
     this.setState({
       todos: [...this.state.todos, newTodo]
     })
-
     fetch(todoURL, {
       method: "POST",
       headers: {
@@ -33,6 +32,12 @@ export default class App extends Component {
       },
       body: JSON.stringify(newTodo)
     })
+  }
+
+  updateTodo = (updatedTodo) => {
+    let todos = this.state.todos.map(todo => todo.id === updatedTodo.id ? updatedTodo : todo)
+
+    this.setState(todos)
   }
 
   deleteTodo = (id) => {
@@ -49,8 +54,8 @@ export default class App extends Component {
     return (
       <div>
         <h1>Todo App</h1>
-        <TodoForm addTodo={this.addTodo} />
-        <TodoContainer todos={this.state.todos} deleteTodo={this.deleteTodo} />
+        <TodoForm submitAction={this.addTodo} />
+        <TodoContainer todos={this.state.todos} deleteTodo={this.deleteTodo} updateTodo={this.updateTodo} />
       </div>
     )
   }

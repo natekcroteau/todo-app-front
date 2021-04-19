@@ -29,7 +29,7 @@ export default class TodoForm extends Component {
     handleChange = (event) => {
         let {name, value, checked} = event.target
 
-        value = (name === "urgent" || "done") ? checked : value
+        value = (name === "urgent") || (name === "done") ? checked : value
 
         this.setState({
             [name]: value
@@ -49,10 +49,21 @@ export default class TodoForm extends Component {
             ? (
                 <div className="input-group">
                     <label>Done</label>
-                    <input type="checkbox" name="done" checked={this.state.done} onChange={this.handleChange} />
+                    <input 
+                        type="checkbox" 
+                        name="done" 
+                        checked={this.state.done} 
+                        onChange={this.handleChange} />
                 </div>
             ) : null
     }
+
+    showCloseButton = () => {
+        return this.props.todo
+            ? <button className='close-button' onClick={this.props.handleToggle}>Close Form</button>
+            : null
+    }
+
 
     render() {
         const { title, content, urgent, done } = this.state
@@ -60,15 +71,28 @@ export default class TodoForm extends Component {
             <form className="todo-form" onSubmit={this.handleSubmit}>
                 {this.props.todo ? <h2>Edit Todo</h2> : <h2>Create a new todo</h2>}
                 <label>Title</label>
-                <input type="text" name="title" value={title} onChange={this.handleChange} />
+                <input 
+                    type="text" 
+                    name="title" 
+                    value={title} 
+                    onChange={this.handleChange} />
                 <label>Content</label>
-                <input type="text" name="content" value={content} onChange={this.handleChange} />
+                <input 
+                    type="text" 
+                    name="content" 
+                    value={content} 
+                    onChange={this.handleChange} />
                 <div className="input-group">
                     <label>Urgent</label>
-                    <input type="checkbox" name="urgent" checked={urgent} onChange={this.handleChange} />
+                    <input 
+                        type="checkbox" 
+                        name="urgent" 
+                        checked={urgent} 
+                        onChange={this.handleChange} />
                 </div>
                 {this.showDoneCheckbox()}
                 <input type="submit" />
+                {this.showCloseButton()}
             </form>
         )
     }

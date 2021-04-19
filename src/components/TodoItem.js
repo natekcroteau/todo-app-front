@@ -17,5 +17,10 @@ export default function TodoItem({ id, title, content, urgent, done, deleteTodo,
         </li>
     }
 
-    return isToggled ? <TodoForm handleToggle={handleToggle} todo={todo} submitAction={updateTodo}/> : todoCard()
+    return isToggled 
+        ? <TodoForm 
+            handleToggle={handleToggle} 
+            todo={todo} 
+            submitAction={updateTodo}/> 
+            : todoCard()
 }

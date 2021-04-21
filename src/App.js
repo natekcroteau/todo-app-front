@@ -17,9 +17,9 @@ export default class App extends Component {
     alert: []
   }
 
-  componentDidMount(){
-    this.authorize_user()
-  }
+  // componentDidMount(){
+  //   this.authorize_user()
+  // }
 
   authorize_user = () => {
     fetch("http://localhost:3000/profile", {

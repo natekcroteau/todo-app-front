@@ -5,8 +5,7 @@ import SignUpForm from './components/SignUpForm'
 import { Route, Switch, Redirect, Link } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute'
 import Home from './components/Home'
- 
-const todoURL = "http://localhost:3000/todos/"
+
 
 
 export default class App extends Component {
@@ -17,9 +16,11 @@ export default class App extends Component {
     alert: []
   }
 
-  // componentDidMount(){
-  //   this.authorize_user()
-  // }
+  componentDidMount(){
+    if(localStorage.token){
+      this.authorize_user()
+    }
+  }
 
   authorize_user = () => {
     fetch("http://localhost:3000/profile", {
@@ -41,7 +42,7 @@ export default class App extends Component {
     this.setState({
       todos: [...this.state.todos, newTodo]
     })
-    postTodo(newTodo)
+    postTodo(newTodo, this.state.user)
   }
 
 
